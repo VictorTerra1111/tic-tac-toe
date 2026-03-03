@@ -5,6 +5,7 @@
 #include "../hpps/board.hpp"
 #include "../hpps/save_files.hpp"
 #include "../hpps/intro.hpp"
+#include "../hpps/win_logic.hpp"
 
 using namespace std;
 
@@ -26,17 +27,21 @@ int main()
         {
             cout << "Choose in which position do you want to place your marker " << name_save[0] << endl;
             cin >> dec1;
-            // validate range and availability
-            if (dec1 < 1 || dec1 > 9) {
+            if (dec1 < 1 || dec1 > 9)
+            {
                 cout << "invalid, only 1 - 9 numbers are possible" << endl;
-                continue;      // re-start loop instead of exiting
+                continue; 
             }
-            if (vector_find(xs, dec1) || vector_find(os, dec1)) {
+            else if (vector_find(xs, dec1) || vector_find(os, dec1))
+            {
                 cout << "Already used!" << endl;
                 continue;
             }
-            xs.push_back(dec1);
-            draw_board(xs, os);
+            else {
+                xs.push_back(dec1);
+                draw_board(xs, os);
+                p1 = false;
+            }
             p1 = false;
         }
 
@@ -53,18 +58,47 @@ int main()
             {
                 cout << "Choose in which position do you want to place your marker " << name_save[1] << endl;
                 cin >> dec2;
-                if (dec2 < 1 || dec2 > 9) {
+                if (dec2 < 1 || dec2 > 9)
+                {
                     cout << "invalid, only 1 - 9 numbers are possible" << endl;
                     continue;
                 }
-                if (vector_find(xs, dec2) || vector_find(os, dec2)) {
+                else if (vector_find(xs, dec2) || vector_find(os, dec2))
+                {
                     cout << "Already used!" << endl;
                     continue;
                 }
-                os.push_back(dec2);
-                draw_board(xs, os);
+                else {
+                    os.push_back(dec2);
+                    draw_board(xs, os);
+                }
                 p1 = true;
             }
+        }
+
+        if (win_f(xs, os) == 0)
+        {
+            continue;
+        }
+        else if (win_f(xs, os) == 1)
+        {
+            w1++;
+            cout << "Player 1 wins!" << endl;
+            break;
+        }
+        else if (win_f(xs, os) == 2)
+        {
+            w2++;
+            cout << "Player 2 wins!" << endl;
+
+            break;
+        }
+        else
+        {
+            ds++;
+            cout << "It\'s a draw!" << endl;
+
+            break;
         }
     }
 
