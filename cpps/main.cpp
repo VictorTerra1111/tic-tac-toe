@@ -14,12 +14,17 @@ int main()
 {
     int w1 = 0, w2 = 0, ds = 0;
     int dec1, dec2;
-    vector<string> name_save;
+    // store player names returned by introduction
+    vector<string> name_save = introduction_f();
     bool loop = true, p1 = true;
     vector<int> xs;
     vector<int> os;
-    
-    introduction_f();
+
+    if (name_save.size() < 2)
+    {
+        cerr << "NAMING ERROR\n";
+        return 1;
+    }
 
     while (loop)
     {
@@ -32,28 +37,31 @@ int main()
             if (dec1 < 1 || dec1 > 9)
             {
                 cout << "invalid, only 1 - 9 numbers are possible" << endl;
-                continue; 
+                continue;
             }
             else if (vector_find(xs, dec1) || vector_find(os, dec1))
             {
                 cout << "Already used!" << endl;
                 continue;
             }
-            else {
+            else
+            {
                 xs.push_back(dec1);
                 draw_board(xs, os);
                 p1 = false;
+                // note: p1 already set to false above
             }
-            p1 = false;
         }
 
         else
         {
             if (name_save[1] == "Computer")
-            {
+          
+                     {
                 cout << "The computer is deciding where to play..." << endl;
                 dec2 = 10;
                 os.push_back(dec2);
+                draw_board(xs, os);
                 p1 = true;
             }
             else
@@ -70,7 +78,8 @@ int main()
                     cout << "Already used!" << endl;
                     continue;
                 }
-                else {
+                else
+                {
                     os.push_back(dec2);
                     draw_board(xs, os);
                 }
@@ -78,11 +87,7 @@ int main()
             }
         }
 
-        if (win_f(xs, os) == 0)
-        {
-            continue;
-        }
-        else if (win_f(xs, os) == 1)
+        if (win_f(xs, os) == 1)
         {
             w1++;
             cout << "Player 1 wins!" << endl;
@@ -95,7 +100,7 @@ int main()
 
             break;
         }
-        else
+        else if (win_f(xs, os) == -1)
         {
             ds++;
             cout << "It\'s a draw!" << endl;
