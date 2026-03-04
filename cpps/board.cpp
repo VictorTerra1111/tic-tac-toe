@@ -19,6 +19,8 @@ bool draw_board(const vector<int>& x_pos, const vector<int>& o_pos){
     int place_count = 0;
     string what_to_show;
     
+    cout << "\033[2J\033[H" << flush;
+
     cout << "+---+-+---+-+---+" << endl;
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){

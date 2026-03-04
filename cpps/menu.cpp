@@ -27,6 +27,8 @@ char getch()
 int menu_f()
 {
     int open_save = 0;
+    cout << "\033[2J\033[H" << flush;
+
     cout << "+===================+" << endl;
     cout << "|    TIC TAC TOE    |" << endl;
     cout << "|    -----------    |" << endl;
@@ -42,12 +44,12 @@ int menu_f()
 
 int load_options()
 {
-    int mode = 1;
+    int mode = 1, a;
     char input;
 
     while (true)
     {
-        // cout << "\033[2J\033[1;1H";
+        cout << "\033[2J\033[H" << flush;
 
         cout << "+===================+\n";
 
@@ -66,12 +68,18 @@ int load_options()
 
         input = getch();
 
-        if (input == 's' && mode == 1)
+        if (input == 's' && mode == 1){
             mode = 2;
+        }
         else if (input == 'w' && mode == 2)
             mode = 1;
-        else if (input == '\n' || input == '\r')
+        else if (input == '\n' || input == '\r'){
+            if(mode == 1) break;
+            if(mode == 2){
+                a = save_menu();
+            }
             break;
+        }
     }
 
     return mode;
@@ -82,6 +90,8 @@ int save_menu()
     int mode = 1;
     char input;
 
+    cout << "\033[2J\033[H" << flush;
+
     cout << "+===================+\n";
     cout << "| > SLOT 1          |\n";
     cout << "| > SLOT 2          |\n";
@@ -89,7 +99,7 @@ int save_menu()
 
     while (true)
     {
-        // cout << "\033[2J\033[1;1H";
+        cout << "\033[2J\033[H" << flush;
 
         cout << "+===================+\n";
 
