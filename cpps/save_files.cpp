@@ -6,9 +6,17 @@
 
 using namespace std;
 
-void file_save(const string name1, const string name2, const int wins1, const int wins2, const int draws){
-    ofstream file("save_file.txt");
+void file_save(const int slot, const string name1, const string name2, const int wins1, const int wins2, const int draws){
     
+    ofstream file;
+
+    if(slot == 1){
+        file.open("save_file_slot1.txt");
+
+    }
+    else{
+        file.open("save_file_slot2.txt");
+    }    
     if(file.is_open()){
         cout <<" saving game..." << endl;
         file << name1 << " " << wins1 << endl;
@@ -19,5 +27,33 @@ void file_save(const string name1, const string name2, const int wins1, const in
 
     } else {
         cout << "Unable to save current game :(" << endl;
+    }
+}
+
+void find_save(const int slot)
+{
+    ifstream file;
+
+    if (slot == 1)
+        file.open("save_file_slot1.txt");
+    else
+        file.open("save_file_slot2.txt");
+
+    if (file.is_open())
+    {
+        string line;
+
+        cout << "Loading save...\n\n";
+
+        while (getline(file, line))
+        {
+            cout << line << endl;
+        }
+
+        file.close();
+    }
+    else
+    {
+        cout << "No save file found.\n";
     }
 }

@@ -6,6 +6,7 @@
 #include "../hpps/save_files.hpp"
 #include "../hpps/intro.hpp"
 #include "../hpps/win_logic.hpp"
+#include "../hpps/menu.hpp"
 
 using namespace std;
 
@@ -17,7 +18,8 @@ int main()
     bool loop = true, p1 = true;
     vector<int> xs;
     vector<int> os;
-    name_save = introduction_f();
+    
+    introduction_f();
 
     while (loop)
     {
@@ -102,7 +104,7 @@ int main()
         }
     }
 
-    file_save(name_save[0], name_save[1], w1, w2, ds);
+    file_save(1, name_save[0], name_save[1], w1, w2, ds);
 
     xs.clear();
     os.clear();
