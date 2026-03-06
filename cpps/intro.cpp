@@ -7,25 +7,8 @@
 
 #include "../hpps/intro.hpp"
 #include "../hpps/menu.hpp"
+#include "../hpps/getch.hpp"
 
-
-char getch()
-{
-    termios oldt, newt;
-    char ch;
-
-    tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-
-    newt.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-
-    ch = getchar();
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-
-    return ch;
-}
 using namespace std;
 
 vector<string> introduction_f()

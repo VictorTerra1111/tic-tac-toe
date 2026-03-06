@@ -1,3 +1,3 @@
-V 1
-a 0
+vic 0
+lulu 1
 Draws 0

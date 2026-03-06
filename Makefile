@@ -6,10 +6,10 @@ OBJDIR = obj
 BINDIR = bin
 
 # Arquivos fonte
-SOURCES = $(SRCDIR)/main.cpp $(SRCDIR)/board.cpp $(SRCDIR)/intro.cpp $(SRCDIR)/menu.cpp $(SRCDIR)/save_files.cpp $(SRCDIR)/win_logic.cpp
+SOURCES = $(SRCDIR)/main.cpp $(SRCDIR)/board.cpp $(SRCDIR)/intro.cpp $(SRCDIR)/menu.cpp $(SRCDIR)/save_files.cpp $(SRCDIR)/win_logic.cpp $(SRCDIR)/getch.cpp
 
 # Arquivos objeto
-OBJECTS = $(OBJDIR)/main.o $(OBJDIR)/board.o $(OBJDIR)/intro.o $(OBJDIR)/menu.o $(OBJDIR)/save_files.o $(OBJDIR)/win_logic.o
+OBJECTS = $(OBJDIR)/main.o $(OBJDIR)/board.o $(OBJDIR)/intro.o $(OBJDIR)/menu.o $(OBJDIR)/save_files.o $(OBJDIR)/win_logic.o $(OBJDIR)/getch.o
 
 TARGET = $(BINDIR)/game
 

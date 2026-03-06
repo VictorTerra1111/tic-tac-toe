@@ -49,7 +49,7 @@ int draw_f(vector<int> vec1, vector<int> vec2)
         return 1;
     else if (win_condition(vec2) && !win_condition(vec1))
         return 2;
-    else return -1;
+    return -1;
 }
 
 int win_f(const vector<int> &x_pos, const vector<int> &o_pos)
@@ -69,6 +69,5 @@ int win_f(const vector<int> &x_pos, const vector<int> &o_pos)
         if (draw_test == -1)
             return -1;
     }
-    else
-        return 0;
+    return 0;
 }
