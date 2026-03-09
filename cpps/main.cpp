@@ -13,13 +13,32 @@ using namespace std;
 int main()
 {
     int w1 = 0, w2 = 0, ds = 0;
-    int dec1, dec2;
-    // store player names returned by introduction
-    vector<string> name_save = introduction_f();
-    bool loop = true, p1 = true;
+    int dec1, dec2, save_or_new;
+    bool loop = true, p1 = true, game_over = false;
     vector<int> xs;
     vector<int> os;
+    int file_to_save = 1;
+    char end_quest;
+    vector<pair<string,int>> info_save_file;
+    vector<string> name_save;
 
+    save_or_new = menu_f();
+    if(save_or_new == 1){
+    	//new game
+	name_save = introduction_f();
+    }
+    else{
+    	//load save
+    	file_to_save = save_menu();
+	info_save_file = find_save(file_to_save);
+	w1 = info_save_file[0].second;
+	w2 = info_save_file[1].second;
+	ds = info_save_file[2].second;
+	name_save.push_back(info_save_file[0].first);
+	name_save.push_back(info_save_file[1].first);
+
+    }
+    
     if (name_save.size() < 2)
     {
         cerr << "NAMING ERROR\n";
@@ -49,7 +68,6 @@ int main()
                 xs.push_back(dec1);
                 draw_board(xs, os);
                 p1 = false;
-                // note: p1 already set to false above
             }
         }
 
@@ -91,26 +109,44 @@ int main()
         {
             w1++;
             cout << "Player 1 wins!" << endl;
-            break;
-        }
+	    game_over = true;
+	}
         else if (win_f(xs, os) == 2)
         {
             w2++;
             cout << "Player 2 wins!" << endl;
+            game_over = true;
 
-            break;
         }
         else if (win_f(xs, os) == -1)
         {
             ds++;
             cout << "It\'s a draw!" << endl;
+            game_over = true;
 
-            break;
         }
+	else continue;
+
+	if(game_over){
+		cout << "Play again?(y/n)" << endl;
+		cin >> end_quest;
+		if(end_quest == 'y'){
+			xs.clear();
+			os.clear();
+			continue;
+		}
+		else {
+                        cout << "Stopping game" << endl;
+                        file_save(file_to_save, name_save[0], name_save[1], w1, w2, ds);
+                        break;
+                }
+
+				
+		game_over = false;
+		p1 = true;
+	}
+
     }
-
-    file_save(1, name_save[0], name_save[1], w1, w2, ds);
-
     xs.clear();
     os.clear();
 

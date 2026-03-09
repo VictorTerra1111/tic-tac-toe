@@ -53,8 +53,8 @@ vector<string> introduction_f()
 
     cout << "\033[2J\033[H" << flush;
 
-    cout << "        HELLO!        " << endl;
-    cout << "Let's play TIC TAC TOE\n" << endl;
+
+    cout << endl << endl;
 
     if (mode == 1) // Solo
     {

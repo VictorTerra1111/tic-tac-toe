@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 
 #include "../hpps/save_files.hpp"
 
@@ -30,8 +31,9 @@ void file_save(const int slot, const string name1, const string name2, const int
     }
 }
 
-void find_save(const int slot)
+vector<pair<string,int>> find_save(const int slot)
 {
+    vector<pair<string,int>> info;
     ifstream file;
 
     if (slot == 1)
@@ -41,13 +43,14 @@ void find_save(const int slot)
 
     if (file.is_open())
     {
-        string line;
+        string name;
+        int value;
 
-        cout << "Loading save...\n\n";
+        cout << "Loading save..." << endl;
 
-        while (getline(file, line))
+        while (file >> name >> value)
         {
-            cout << line << endl;
+            info.push_back({name, value});
         }
 
         file.close();
@@ -56,4 +59,6 @@ void find_save(const int slot)
     {
         cout << "No save file found.\n";
     }
+
+    return info;
 }
